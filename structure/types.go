@@ -18,3 +18,16 @@ type Group interface {
 	Identity() Group
 	Inverse(Group) Group
 }
+
+type CommutativeGroup interface {
+	Op(Group) Group
+	Identity() Group
+	Inverse(Group) Group
+}
+
+type Ring interface {
+	Add(Ring) Ring
+	Multiply(Ring) Ring
+	Zero() Ring
+	One() Ring
+}
