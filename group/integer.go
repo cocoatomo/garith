@@ -1,15 +1,27 @@
 package group
 
-type Integer int64
+import (
+	"math/big"
+)
 
-func (lhs Integer) Op(rhs Integer) Integer {
-	return lhs + rhs
+type Integer struct {
+	value *big.Int
 }
 
-func (_ Integer) Identity() Integer {
-	return 0
+func NewInteger(value int64) Integer {
+	return Integer{big.NewInt(value)}
+}
+
+func (i Integer) Op(i2 Integer) Integer {
+	result := NewInteger(0)
+	return Integer{result.value.Add(i.value, i2.value)}
+}
+
+func (i Integer) Identity() Integer {
+	return NewInteger(0)
 }
 
 func (i Integer) Inverse() Integer {
-	return - i
+	inverse := NewInteger(0)
+	return Integer{inverse.value.Neg(i.value)}
 }
